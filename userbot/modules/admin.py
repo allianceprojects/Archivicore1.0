@@ -43,19 +43,19 @@ from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot
 from userbot.events import register
 
 # =================== CONSTANT ===================
-PP_TOO_SMOL = "`The image is too small`"
-PP_ERROR = "`Failure while processing the image`"
-NO_ADMIN = "`I am not an admin!`"
-NO_PERM = "`I don't have sufficient permissions!`"
-NO_SQL = "`Running on Non-SQL mode!`"
+PP_TOO_SMOL = "`Gambar terlalu kecil`"
+PP_ERROR = "`Kegagalan saat memproses gambar`"
+NO_ADMIN = "`Saya bukan seorang admin!`"
+NO_PERM = "`Saya tidak memiliki izin yang memadai!`"
+NO_SQL = "`Berjalan pada mode Non-SQL!`"
 
-CHAT_PP_CHANGED = "`Chat Picture Changed`"
+CHAT_PP_CHANGED = "`Gambar Obrolan Berubah`"
 CHAT_PP_ERROR = (
-    "`Some issue with updating the pic,`"
-    "`maybe coz I'm not an admin,`"
-    "`or don't have enough rights.`"
+    "`Beberapa masalah dengan memperbarui foto,`"
+    "`mungkin karena saya bukan admin,`"
+    "`atau tidak memiliki cukup hak.`"
 )
-INVALID_MEDIA = "`Invalid Extension`"
+INVALID_MEDIA = "`Ekstensi Tidak Valid`"
 
 BANNED_RIGHTS = ChatBannedRights(
     until_date=None,
@@ -92,7 +92,7 @@ async def set_group_photo(gpic):
     await gpic.edit("`Processing...`")
     await sleep(1)
     if not gpic.is_group:
-        await gpic.edit("`I don't think this is a group.`")
+        await gpic.edit("`Saya tidak berpikir ini adalah grup.`")
         return
     replymsg = await gpic.get_reply_message()
     chat = await gpic.get_chat()
