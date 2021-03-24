@@ -33,11 +33,11 @@ async def fban(event):
 
     if fban_id == self_user.id or fban_id == "@" + self_user.username:
         return await event.edit(
-            "**Error: This action has been prevented by One4uBot self preservation protocols.**"
+            "**Error: Tindakan ini telah dicegah oleh protokol pelestarian diri Archivicore.**"
         )
 
     if len((fed_list := get_flist())) == 0:
-        return await event.edit("**You haven't connected to any federations yet!**")
+        return await event.edit("**Anda belum terhubung ke federasi mana pun!**")
 
     await event.edit(f"**Fbanning** {user_link}...")
     failed = []
@@ -56,9 +56,9 @@ async def fban(event):
 
                 if (
                     ("New FedBan" not in reply.text)
-                    and ("Starting a federation ban" not in reply.text)
-                    and ("Start a federation ban" not in reply.text)
-                    and ("FedBan reason updated" not in reply.text)
+                    and ("Memulai pelarangan federasi" not in reply.text)
+                    and ("Mulai pelarangan federasi" not in reply.text)
+                    and ("Alasan FedBan diperbarui" not in reply.text)
                 ):
                     failed.append(i.fed_name)
         except BaseException:
@@ -100,10 +100,10 @@ async def unfban(event):
     self_user = await event.client.get_me()
 
     if unfban_id == self_user.id or unfban_id == "@" + self_user.username:
-        return await event.edit("**Wait, that's illegal**")
+        return await event.edit("**Tunggu, itu ilegal**")
 
     if len((fed_list := get_flist())) == 0:
-        return await event.edit("**You haven't connected any federations yet!**")
+        return await event.edit("**Anda belum menghubungkan federasi!**")
 
     await event.edit(f"**Un-fbanning **{user_link}**...**")
     failed = []
@@ -122,7 +122,7 @@ async def unfban(event):
 
                 if (
                     ("New un-FedBan" not in reply.text)
-                    and ("I'll give" not in reply.text)
+                    and ("Saya akan memberi" not in reply.text)
                     and ("Un-FedBan" not in reply.text)
                 ):
                     failed.append(i.fed_name)
@@ -153,16 +153,16 @@ async def addf(event):
         return await event.edit("**Running on Non-SQL mode!**")
 
     if not (fed_name := event.pattern_match.group(1)):
-        return await event.edit("**Pass a name in order connect to this group!**")
+        return await event.edit("**Berikan nama untuk terhubung ke grup ini!**")
 
     try:
         add_flist(event.chat_id, fed_name)
     except IntegrityError:
         return await event.edit(
-            "**This group is already connected to federations list.**"
+            "**Grup ini sudah terhubung ke daftar federasi.**"
         )
 
-    await event.edit("**Added this group to federations list!**")
+    await event.edit("**Menambahkan grup ini ke daftar federasi!**")
 
 
 @register(outgoing=True, pattern=r"^\.delf$")
@@ -174,7 +174,7 @@ async def delf(event):
         return await event.edit("**Running on Non-SQL mode!**")
 
     del_flist(event.chat_id)
-    await event.edit("**Removed this group from federations list!**")
+    await event.edit("**Menghapus grup ini dari daftar federasi!**")
 
 
 @register(outgoing=True, pattern=r"^\.listf$")
@@ -186,9 +186,9 @@ async def listf(event):
         return await event.edit("**Running on Non-SQL mode!**")
 
     if len((fed_list := get_flist())) == 0:
-        return await event.edit("**You haven't connected to any federations yet!**")
+        return await event.edit("**Anda belum terhubung ke federasi mana pun!**")
 
-    msg = "**Connected federations:**\n\n"
+    msg = "**Federasi yang terhubung:**\n\n"
 
     for i in fed_list:
         msg += "• " + str(i.fed_name) + "\n"
@@ -205,7 +205,7 @@ async def delf(event):
         return await event.edit("**Running on Non-SQL mode!**")
 
     del_flist_all()
-    await event.edit("**Disconnected from all connected federations!**")
+    await event.edit("**Terputus dari semua federasi yang terhubung!**")
 
 
 CMD_HELP.update(

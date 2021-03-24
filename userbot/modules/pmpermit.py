@@ -23,11 +23,11 @@ from userbot.events import register
 
 # ========================= CONSTANTS ============================
 DEF_UNAPPROVED_MSG = (
-    "Hey! Sorry, I haven't approved you to PM yet.\n"
-    "Please wait for me to look in.\n"
-    "Until then, please don't spam my PM...\n"
-    "Thank you for being patient.\n\n"
-    "*This is an automated message."
+    "Hei! Maaf, saya belum menyetujui Anda untuk PM.\n"
+    "Mohon tunggu saya untuk melihat pesan.\n"
+    "Sampai nanti, tolong jangan spam PM saya...\n"
+    "Terima kasih sudah bersabar.\n\n"
+    "*Ini adalah pesan otomatis."
 )
 # =================================================================
 
@@ -86,8 +86,8 @@ async def permitpm(event):
 
             if COUNT_PM[event.chat_id] > 4:
                 await event.respond(
-                    "`You were spamming my PM, which I didn't like.`\n"
-                    "`I Wouldn't let you to chat me again until further notice`\n"
+                    "`Anda melakukan spamming pada PM saya, yang tidak saya sukai.`\n"
+                    "`Saya tidak akan membiarkan Anda mengobrol dengan saya lagi sampai pemberitahuan lebih lanjut`\n"
                     "`Bye`"
                 )
 
@@ -98,7 +98,7 @@ async def permitpm(event):
                     if BOTLOG:
                         await event.client.send_message(
                             BOTLOG_CHATID,
-                            "Count PM is seemingly going retard, plis restart bot!",
+                            "Hitung PM tampaknya akan terbelakang, silakan restart bot!",
                         )
                     LOGS.info("CountPM wen't rarted boi")
                     return
@@ -231,10 +231,10 @@ async def approvepm(apprvpm):
     try:
         approve(uid)
     except IntegrityError:
-        await apprvpm.edit("`User may already be approved.`")
+        await apprvpm.edit("`Pengguna mungkin sudah disetujui.`")
         return
 
-    await apprvpm.edit(f"[{name0}](tg://user?id={uid}) `approved to PM!`")
+    await apprvpm.edit(f"[{name0}](tg://user?id={uid}) `disetujui untuk PM!`")
 
     if BOTLOG:
         await apprvpm.client.send_message(
@@ -263,14 +263,14 @@ async def disapprovepm(disapprvpm):
         name0 = str(aname.first_name)
 
     await disapprvpm.edit(
-        f"[{name0}](tg://user?id={disapprvpm.chat_id}) `Disaproved to PM!`"
+        f"[{name0}](tg://user?id={disapprvpm.chat_id}) `Tidak disetujui untuk PM!`"
     )
 
     if BOTLOG:
         await disapprvpm.client.send_message(
             BOTLOG_CHATID,
             f"[{name0}](tg://user?id={disapprvpm.chat_id})"
-            " was disapproved to PM you.",
+            " tidak disetujui untuk PM Anda.",
         )
 
 
@@ -283,12 +283,12 @@ async def blockpm(block):
         aname = replied_user.id
         name0 = str(replied_user.first_name)
         await block.client(BlockRequest(aname))
-        await block.edit("`You've been blocked!`")
+        await block.edit("`Anda telah diblokir!`")
         uid = replied_user.id
     else:
         await block.client(BlockRequest(block.chat_id))
         aname = await block.client.get_entity(block.chat_id)
-        await block.edit("`You've been blocked!`")
+        await block.edit("`Anda telah diblokir!`")
         name0 = str(aname.first_name)
         uid = block.chat_id
 
@@ -314,12 +314,12 @@ async def unblockpm(unblock):
         replied_user = await unblock.client.get_entity(reply.from_id)
         name0 = str(replied_user.first_name)
         await unblock.client(UnblockRequest(replied_user.id))
-        await unblock.edit("`You have been unblocked.`")
+        await unblock.edit("`Anda telah dibebaskan.`")
 
     if BOTLOG:
         await unblock.client.send_message(
             BOTLOG_CHATID,
-            f"[{name0}](tg://user?id={replied_user.id})" " was unblocc'd!.",
+            f"[{name0}](tg://user?id={replied_user.id})" " telah dibebaskan!.",
         )
 
 
@@ -327,7 +327,7 @@ async def unblockpm(unblock):
 async def add_pmsg(cust_msg):
     """ Set your own Unapproved message. """
     if not PM_AUTO_BAN:
-        return await cust_msg.edit("You need to set `PM_AUTO_BAN` to `True`")
+        return await cust_msg.edit("Anda perlu menyetel `PM_AUTO_BAN` ke` True`")
     try:
         import userbot.modules.sql_helper.globals as sql
     except AttributeError:
@@ -357,7 +357,7 @@ async def add_pmsg(cust_msg):
         else:
             return await cust_msg.edit("`Reply to a message`")
 
-        await cust_msg.edit("`Message saved as unapproved message`")
+        await cust_msg.edit("`Pesan disimpan sebagai pesan yang tidak disetujui`")
 
         if BOTLOG:
             await cust_msg.client.send_message(
@@ -367,19 +367,19 @@ async def add_pmsg(cust_msg):
     if conf.lower() == "reset":
         if custom_message is not None:
             sql.delgvar("unapproved_msg")
-            await cust_msg.edit("`Unapproved message reset to default`")
+            await cust_msg.edit("`esan yang tidak disetujui disetel ulang ke default`")
         else:
-            await cust_msg.edit("`You haven't set a custom message yet`")
+            await cust_msg.edit("`Anda belum menyetel pesan khusus`")
 
     if conf.lower() == "get":
         if custom_message is not None:
             await cust_msg.edit(
-                "***This is your current unapproved message:***" f"\n\n{custom_message}"
+                "***ni adalah pesan Anda yang belum disetujui saat ini:***" f"\n\n{custom_message}"
             )
         else:
             await cust_msg.edit(
-                "*You Have not set unapproved message yet*\n"
-                f"Using default message: \n\n`{DEF_UNAPPROVED_MSG}`"
+                "*Anda belum menyetel pesan yang tidak disetujui*\n"
+                f"Menggunakan pesan default: \n\n`{DEF_UNAPPROVED_MSG}`"
             )
 
 

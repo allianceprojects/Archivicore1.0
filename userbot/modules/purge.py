@@ -30,20 +30,20 @@ async def fastpurger(purg):
                 await purg.client.delete_messages(chat, msgs)
                 msgs = []
     else:
-        await purg.edit("`I need a mesasge to start purging from.`")
+        await purg.edit("`Saya perlu pesan untuk mulai membersihkan.`")
         return
 
     if msgs:
         await purg.client.delete_messages(chat, msgs)
     done = await purg.client.send_message(
         purg.chat_id,
-        f"`Fast purge complete!`\
+        f"`Pembersihan cepat telah selesai!`\
         \nPurged {str(count)} messages",
     )
 
     if BOTLOG:
         await purg.client.send_message(
-            BOTLOG_CHATID, "Purge of " + str(count) + " messages done successfully."
+            BOTLOG_CHATID, "Pembersihan " + str(count) + " pesan berhasil diselesaikan."
         )
     await sleep(2)
     await done.delete()
@@ -64,7 +64,7 @@ async def purgeme(delme):
 
     smsg = await delme.client.send_message(
         delme.chat_id,
-        "`Purge complete!` Purged " + str(count) + " messages.",
+        "`Pembersihan selesai!` Purged " + str(count) + " messages.",
     )
     if BOTLOG:
         await delme.client.send_message(
@@ -85,12 +85,12 @@ async def delete_it(delme):
             await delme.delete()
             if BOTLOG:
                 await delme.client.send_message(
-                    BOTLOG_CHATID, "Deletion of message was successful"
+                    BOTLOG_CHATID, "Penghapusan pesan berhasil"
                 )
         except rpcbaseerrors.BadRequestError:
             if BOTLOG:
                 await delme.client.send_message(
-                    BOTLOG_CHATID, "Well, I can't delete a message"
+                    BOTLOG_CHATID, "Ya, saya tidak bisa menghapus pesan"
                 )
 
 
@@ -110,7 +110,7 @@ async def editer(edit):
         i = i + 1
     if BOTLOG:
         await edit.client.send_message(
-            BOTLOG_CHATID, "Edit query was executed successfully"
+            BOTLOG_CHATID, "Edit kueri berhasil dijalankan"
         )
 
 

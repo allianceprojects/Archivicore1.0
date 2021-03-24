@@ -172,7 +172,7 @@ async def bot_ver(event):
             )
         else:
             await event.edit(
-                "Shame that you don't have git, you're running - 'v2.5' anyway!"
+                "Sayang sekali Anda tidak memiliki git, Anda tetap menjalankan - 'v1.0'!"
             )
 
 
@@ -196,7 +196,7 @@ async def pipcheck(pip):
 
             if pipout:
                 if len(pipout) > 4096:
-                    await pip.edit("`Output too large, sending as file`")
+                    await pip.edit("`Output terlalu besar, dikirim sebagai file`")
                     file = open("output.txt", "w+")
                     file.write(pipout)
                     file.close()
@@ -248,8 +248,8 @@ async def amireallyalive(alive):
             await alive.delete()
         except BaseException:
             await alive.edit(
-                output + "\n\n *`The provided logo is invalid."
-                "\nMake sure the link is directed to the logo picture`"
+                output + "\n\n *`Logo yang diberikan tidak valid."
+                "\nPastikan tautan diarahkan ke gambar logo`"
             )
     else:
         await alive.edit(output)
@@ -264,7 +264,7 @@ async def amireallyaliveuser(username):
         newuser = message[8:]
         global DEFAULTUSER
         DEFAULTUSER = newuser
-        output = "Successfully changed user to " + newuser + "!"
+        output = "Berhasil mengubah pengguna menjadi " + newuser + "!"
     await username.edit("`" f"{output}" "`")
 
 
@@ -273,7 +273,7 @@ async def amireallyalivereset(ureset):
     """ For .resetalive command, reset the username in the .alive command. """
     global DEFAULTUSER
     DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else uname().node
-    await ureset.edit("`" "Successfully reset user for alive!" "`")
+    await ureset.edit("`" "Berhasil menyetel ulang pengguna untuk hidup!" "`")
 
 
 CMD_HELP.update(

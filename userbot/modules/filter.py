@@ -73,7 +73,7 @@ async def add_new_filter(new_handler):
             msg_id = msg_o.id
         else:
             return await new_handler.edit(
-                "`Saving media as reply to the filter requires the BOTLOG_CHATID to be set.`"
+                "`Menyimpan media sebagai balasan ke filter memerlukan penyetelan BOTLOG_CHATID.`"
             )
     elif new_handler.reply_to_msg_id and not string:
         rep_msg = await new_handler.get_reply_message()
@@ -94,10 +94,10 @@ async def remove_a_filter(r_handler):
         return await r_handler.edit("`Running on Non-SQL mode!`")
     filt = r_handler.pattern_match.group(1)
     if not remove_filter(r_handler.chat_id, filt):
-        await r_handler.edit("`Filter`  **{}**  `doesn't exist`.".format(filt))
+        await r_handler.edit("`Filter`  **{}**  `tidak ada`.".format(filt))
     else:
         await r_handler.edit(
-            "`Filter`  **{}**  `was deleted successfully`.".format(filt)
+            "`Filter`  **{}**  `berhasil dihapus`.".format(filt)
         )
 
 
@@ -108,8 +108,8 @@ async def kick_marie_filter(event):
     event.text[0]
     bot_type = event.pattern_match.group(1).lower()
     if bot_type not in ["marie", "rose"]:
-        return await event.edit("`That bot is not yet supported!`")
-    await event.edit("```Will be kicking away all Filters!```")
+        return await event.edit("`Bot itu belum didukung!`")
+    await event.edit("```Akan menendang semua Filter!```")
     await sleep(3)
     resp = await event.get_reply_message()
     filters = resp.text.split("-")[1:]
@@ -120,10 +120,10 @@ async def kick_marie_filter(event):
             i = i.replace("`", "")
             await event.reply("/stop %s" % (i.strip()))
         await sleep(0.3)
-    await event.respond("```Successfully purged bots filters yaay!```\n Gimme cookies!")
+    await event.respond("```Berhasil membersihkan filter bot yaay!```\n Gimme coffe!")
     if BOTLOG:
         await event.client.send_message(
-            BOTLOG_CHATID, "I cleaned all filters at " + str(event.chat_id)
+            BOTLOG_CHATID, "Saya membersihkan semua filter di " + str(event.chat_id)
         )
 
 
@@ -134,11 +134,11 @@ async def filters_active(event):
         from userbot.modules.sql_helper.filter_sql import get_filters
     except AttributeError:
         return await event.edit("`Running on Non-SQL mode!`")
-    transact = "`There are no filters in this chat.`"
+    transact = "`Tidak ada filter dalam obrolan ini.`"
     filters = get_filters(event.chat_id)
     for filt in filters:
-        if transact == "`There are no filters in this chat.`":
-            transact = "Active filters in this chat:\n"
+        if transact == "`Tidak ada filter dalam obrolan ini.`":
+            transact = "Filter aktif dalam obrolan ini:\n"
             transact += "`{}`\n".format(filt.keyword)
         else:
             transact += "`{}`\n".format(filt.keyword)
