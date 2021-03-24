@@ -1,15 +1,15 @@
 FROM movecrew/one4ubot:alpine-latest
 
-RUN mkdir /One4uBot && chmod 777 /One4uBot
-ENV PATH="/One4uBot/bin:$PATH"
-WORKDIR /One4uBot
+RUN mkdir /Archivicore1.0 && chmod 777 /Archivicore1.0
+ENV PATH="/Archivicore1.0/bin:$PATH"
+WORKDIR /Archivicore1.0
 
-RUN git clone https://github.com/MoveAngel/One4uBot -b sql-extended /One4uBot
+RUN git clone https://github.com/AllianceProjects/Archivicore1.0 -b sql-extended /Archivicore1.0
 
 #
 # Copies session and config(if it exists)
 #
-COPY ./sample_config.env ./userbot.session* ./config.env* /One4uBot/
+COPY ./sample_config.env ./userbot.session* ./config.env* /Archivicore1.0/
 
 #
 # Make open port TCP
